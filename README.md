@@ -3,7 +3,9 @@
 **English** | [Русский](README_ru.md)
 
 A lightweight C# / WPF utility that displays real-time hardware metrics (CPU, GPU, RAM, temperatures) and the currently focused window or game in your Discord Rich Presence status.
-<img width="978" height="1549" alt="image" src="https://github.com/user-attachments/assets/4788920f-4ab5-40e3-a58c-1c0a6948ec0f" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/4788920f-4ab5-40e3-a58c-1c0a6948ec0f" alt="Discord SysInfo RPC Preview" width="450" />
+</p>
 
 ## Features
 
