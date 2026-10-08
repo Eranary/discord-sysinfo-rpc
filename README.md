@@ -3,6 +3,7 @@
 **English** | [Русский](README_ru.md)
 
 A lightweight C# / WPF utility that displays real-time hardware metrics (CPU, GPU, RAM, temperatures) and the currently focused window or game in your Discord Rich Presence status.
+<img width="978" height="1549" alt="image" src="https://github.com/user-attachments/assets/4788920f-4ab5-40e3-a58c-1c0a6948ec0f" />
 
 ## Features
 
@@ -13,6 +14,7 @@ A lightweight C# / WPF utility that displays real-time hardware metrics (CPU, GP
 - Reactive load icons: built-in animated character presets (Kiara, Gura, Mori, Discord Label) or custom image URLs mapped to load thresholds (Idle, Low, Medium, High).
 - Flexible timers: elapsed time, time since start of day, or watching duration progress bar.
 - System tray minimization, auto-connect on launch, and bilingual UI (English / Russian).
+<img width="846" height="280" alt="image" src="https://github.com/user-attachments/assets/ee546542-da21-451c-bf92-c3f5db9cd9a1" />
 
 ## Quick Start
 
