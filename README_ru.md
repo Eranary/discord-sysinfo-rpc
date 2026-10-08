@@ -3,7 +3,9 @@
 [English](README.md) | **Русский**
 
 Небольшая утилита на C# / WPF, которая транслирует в статус Discord Rich Presence информацию о системе (нагрузку процессора, видеокарты, оперативки, температуры), а также название и иконку активной игры или программы.
-
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/4788920f-4ab5-40e3-a58c-1c0a6948ec0f" alt="Discord SysInfo RPC Preview" width="450" />
+</p>
 ## Основные возможности
 
 - Мониторинг системы: опрос датчиков через LibreHardwareMonitor (нагрузка CPU/GPU/RAM, температуры, частоты и визуальная шкала).
@@ -13,7 +15,9 @@
 - Иконки по уровню нагрузки: встроенные анимированные пресеты (Kiara, Gura, Mori, Discord Label) или свои ссылки под разные пороги (Idle, Low, Medium, High).
 - Таймеры: время с запуска, с начала дня или полоса прогресса (для режима «Смотрит»).
 - Сворачивание в трей, автоподключение и переключение языка интерфейса (RU / EN).
-
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/ee546542-da21-451c-bf92-c3f5db9cd9a1" alt="Discord SysInfo RPC Preview in Discod" width="450" />
+</p>
 ## Быстрый старт
 
 1. Создайте приложение на [Discord Developer Portal](https://discord.com/developers/applications) (нажмите **New Application**).
