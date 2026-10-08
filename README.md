@@ -16,7 +16,9 @@ A lightweight C# / WPF utility that displays real-time hardware metrics (CPU, GP
 - Reactive load icons: built-in animated character presets (Kiara, Gura, Mori, Discord Label) or custom image URLs mapped to load thresholds (Idle, Low, Medium, High).
 - Flexible timers: elapsed time, time since start of day, or watching duration progress bar.
 - System tray minimization, auto-connect on launch, and bilingual UI (English / Russian).
-<img width="846" height="280" alt="image" src="https://github.com/user-attachments/assets/ee546542-da21-451c-bf92-c3f5db9cd9a1" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/ee546542-da21-451c-bf92-c3f5db9cd9a1" alt="Discord SysInfo RPC Preview in Discod" width="450" />
+</p>
 
 ## Quick Start
 
