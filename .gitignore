@@ -1,0 +1,27 @@
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio / Rider / VS Code
+.vs/
+.idea/
+.vscode/
+*.user
+*.suo
+*.userprefs
+*.pidb
+*.booproj
+
+# Runtime local cache and configs
+config.json
+icon-cache.json
+*.log
+
+# Publish and installer folders
+publish/
+[Rr]elease/
+[Dd]ebug/
+installer_output/
+*.pdb
