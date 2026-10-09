@@ -26,7 +26,7 @@ public partial class MainWindow : Window
     private System.Windows.Forms.NotifyIcon? _trayIcon;
     private bool _helpExpanded;
     private bool _systemExpanded;
-    private bool _loadingUi;
+    private bool _loadingUi = true;
 
     private static readonly Brush SuccessBrush = new SolidColorBrush(Color.FromRgb(59, 165, 92));
     private static readonly Brush DangerBrush = new SolidColorBrush(Color.FromRgb(237, 66, 69));
@@ -34,6 +34,7 @@ public partial class MainWindow : Window
 
     public MainWindow()
     {
+        _loadingUi = true;
         InitializeComponent();
         _config = Config.Load();
         Loc.SetLanguage(_config.UiLanguage);
@@ -67,7 +68,7 @@ public partial class MainWindow : Window
         UpdateSystemInfo();
         InitTray();
 
-        if (_config.AutoConnect && _rpcService != null)
+        if (_config.AutoConnect && !string.IsNullOrWhiteSpace(_config.ClientId) && _rpcService != null)
         {
             Dispatcher.InvokeAsync(async () =>
             {
@@ -92,122 +93,131 @@ public partial class MainWindow : Window
 
     private void ApplyLocalization()
     {
-        Title = Loc.Get("AppTitle");
-        HeaderTitle.Text = Loc.Get("AppTitle");
-        SettingsSectionTitle.Text = Loc.Get("SectionSettings");
-        AdditionalSectionTitle.Text = Loc.Get("SectionAdditional");
-        SystemToggle.Text = _systemExpanded ? Loc.Get("SystemExpanded") : Loc.Get("System");
-        LabelAppId.Text = Loc.Get("LabelAppId");
-        ClientIdPlaceholder.Text = Loc.Get("PlaceholderAppId");
-        UpdateClientIdPlaceholder();
-        LabelActivityName.Text = Loc.Get("LabelActivityName");
-        ActivityNamePlaceholder.Text = Loc.Get("PlaceholderActivityName");
-        ButtonLabelPlaceholder.Text = Loc.Get("PlaceholderButtonLabel");
-        ButtonUrlPlaceholder.Text = Loc.Get("PlaceholderButtonUrl");
-        UpdateActivityNamePlaceholder();
-        UpdateButtonLabelPlaceholder();
-        UpdateButtonUrlPlaceholder();
-        LabelActivityType.Text = Loc.Get("LabelActivityType");
-        LabelLanguage.Text = Loc.Get("LabelLanguage");
-        LabelImageSet.Text = Loc.Get("LabelImageSet");
-        LabelTimerMode.Text = Loc.Get("LabelTimerMode");
-        LabelWatchingDuration.Text = Loc.Get("LabelWatchingDuration");
-        LabelWatchingCustomDuration.Text = Loc.Get("LabelWatchingCustomDuration");
-        LabelWatchingHoursUnit.Text = Loc.Get("UnitHours");
-        LabelWatchingMinutesUnit.Text = Loc.Get("UnitMinutes");
-        WatchingDurationHint.Text = Loc.Get("WatchingDurationHint");
-        WatchingHoursPlaceholder.Text = "0";
-        WatchingMinutesPlaceholder.Text = "0";
-        UpdateWatchingHoursPlaceholder();
-        UpdateWatchingMinutesPlaceholder();
-        LabelUpdateInterval.Text = Loc.Get("LabelUpdateInterval");
-        AutoConnectBox.Content = Loc.Get("AutoConnect");
-        DetectAppBox.Content = Loc.Get("DetectForegroundApp");
-        DetectAppHint.Text = Loc.Get("DetectForegroundAppHint");
-        UseShortcutNameBox.Content = Loc.Get("UseShortcutName");
-        UseShortcutNameHint.Text = Loc.Get("UseShortcutNameHint");
-        CustomStatusTextBox.Content = Loc.Get("CustomStatusText");
-        CustomStatusTextHint.Text = Loc.Get("CustomStatusTextHint");
-        LabelCustomDetails.Text = Loc.Get("LabelCustomDetails");
-        CustomDetailsPlaceholder.Text = Loc.Get("PlaceholderCustomDetails");
-        LabelCustomState.Text = Loc.Get("LabelCustomState");
-        CustomStatePlaceholder.Text = Loc.Get("PlaceholderCustomState");
-        CustomStatusTagsHint.Text = Loc.Get("CustomStatusTagsHint");
-        UpdateCustomDetailsPlaceholder();
-        UpdateCustomStatePlaceholder();
-        ShowPromoBox.Content = Loc.Get("ShowPromoButton");
-        ShowPromoHint.Text = Loc.Get("ShowPromoButtonHint");
-        ShowButtonBox.Content = Loc.Get("ShowButton");
-        LabelButtonText.Text = Loc.Get("LabelButtonText");
-        LabelButtonUrl.Text = Loc.Get("LabelButtonUrl");
-        HelpToggle.Text = _helpExpanded ? Loc.Get("HelpExpanded") : Loc.Get("Help");
-        HelpDevPortalTitle.Text = Loc.Get("HelpDevPortalTitle");
-        HelpDevPortal1.Text = Loc.Get("HelpDevPortal1");
-        HelpDevPortal2.Text = Loc.Get("HelpDevPortal2");
-        HelpDevPortal3.Text = Loc.Get("HelpDevPortal3");
-        DevPortalLink.Text = Loc.Get("HelpDevPortalLink");
-        HelpServerTitle.Text = Loc.Get("HelpServerTitle");
-        HelpServerHint.Text = Loc.Get("HelpServerHint");
-        ServerLink.Text = Loc.Get("HelpServerLink");
-        DisconnectBtn.Content = Loc.Get("Disconnect");
-        ConnectBtn.Content = Loc.Get("Connect");
-        SaveBtn.Content = Loc.Get("Save");
-        FooterPrefixRun.Text = Loc.Get("FooterPrefix");
-        DeveloperNameRun.Text = AppConstants.DeveloperName;
-        DeveloperLink.NavigateUri = new Uri(AppConstants.DeveloperDiscordUrl);
-        DeveloperName2Run.Text = AppConstants.DeveloperName2;
-        DeveloperLink2.NavigateUri = new Uri(AppConstants.DeveloperDiscordUrl2);
+        var prevLoading = _loadingUi;
+        _loadingUi = true;
+        try
+        {
+            Title = Loc.Get("AppTitle");
+            HeaderTitle.Text = Loc.Get("AppTitle");
+            SettingsSectionTitle.Text = Loc.Get("SectionSettings");
+            AdditionalSectionTitle.Text = Loc.Get("SectionAdditional");
+            SystemToggle.Text = _systemExpanded ? Loc.Get("SystemExpanded") : Loc.Get("System");
+            LabelAppId.Text = Loc.Get("LabelAppId");
+            ClientIdPlaceholder.Text = Loc.Get("PlaceholderAppId");
+            UpdateClientIdPlaceholder();
+            LabelActivityName.Text = Loc.Get("LabelActivityName");
+            ActivityNamePlaceholder.Text = Loc.Get("PlaceholderActivityName");
+            ButtonLabelPlaceholder.Text = Loc.Get("PlaceholderButtonLabel");
+            ButtonUrlPlaceholder.Text = Loc.Get("PlaceholderButtonUrl");
+            UpdateActivityNamePlaceholder();
+            UpdateButtonLabelPlaceholder();
+            UpdateButtonUrlPlaceholder();
+            LabelActivityType.Text = Loc.Get("LabelActivityType");
+            LabelLanguage.Text = Loc.Get("LabelLanguage");
+            LabelImageSet.Text = Loc.Get("LabelImageSet");
+            LabelTimerMode.Text = Loc.Get("LabelTimerMode");
+            LabelWatchingDuration.Text = Loc.Get("LabelWatchingDuration");
+            LabelWatchingCustomDuration.Text = Loc.Get("LabelWatchingCustomDuration");
+            LabelWatchingHoursUnit.Text = Loc.Get("UnitHours");
+            LabelWatchingMinutesUnit.Text = Loc.Get("UnitMinutes");
+            WatchingDurationHint.Text = Loc.Get("WatchingDurationHint");
+            WatchingHoursPlaceholder.Text = "0";
+            WatchingMinutesPlaceholder.Text = "0";
+            UpdateWatchingHoursPlaceholder();
+            UpdateWatchingMinutesPlaceholder();
+            LabelUpdateInterval.Text = Loc.Get("LabelUpdateInterval");
+            AutoConnectBox.Content = Loc.Get("AutoConnect");
+            DetectAppBox.Content = Loc.Get("DetectForegroundApp");
+            DetectAppHint.Text = Loc.Get("DetectForegroundAppHint");
+            UseShortcutNameBox.Content = Loc.Get("UseShortcutName");
+            UseShortcutNameHint.Text = Loc.Get("UseShortcutNameHint");
+            CustomStatusTextBox.Content = Loc.Get("CustomStatusText");
+            CustomStatusTextHint.Text = Loc.Get("CustomStatusTextHint");
+            LabelCustomDetails.Text = Loc.Get("LabelCustomDetails");
+            CustomDetailsPlaceholder.Text = Loc.Get("PlaceholderCustomDetails");
+            LabelCustomState.Text = Loc.Get("LabelCustomState");
+            CustomStatePlaceholder.Text = Loc.Get("PlaceholderCustomState");
+            CustomStatusTagsHint.Text = Loc.Get("CustomStatusTagsHint");
+            UpdateCustomDetailsPlaceholder();
+            UpdateCustomStatePlaceholder();
+            ShowPromoBox.Content = Loc.Get("ShowPromoButton");
+            ShowPromoHint.Text = Loc.Get("ShowPromoButtonHint");
+            ShowButtonBox.Content = Loc.Get("ShowButton");
+            LabelButtonText.Text = Loc.Get("LabelButtonText");
+            LabelButtonUrl.Text = Loc.Get("LabelButtonUrl");
+            HelpToggle.Text = _helpExpanded ? Loc.Get("HelpExpanded") : Loc.Get("Help");
+            HelpDevPortalTitle.Text = Loc.Get("HelpDevPortalTitle");
+            HelpDevPortal1.Text = Loc.Get("HelpDevPortal1");
+            HelpDevPortal2.Text = Loc.Get("HelpDevPortal2");
+            HelpDevPortal3.Text = Loc.Get("HelpDevPortal3");
+            DevPortalLink.Text = Loc.Get("HelpDevPortalLink");
+            HelpServerTitle.Text = Loc.Get("HelpServerTitle");
+            HelpServerHint.Text = Loc.Get("HelpServerHint");
+            ServerLink.Text = Loc.Get("HelpServerLink");
+            DisconnectBtn.Content = Loc.Get("Disconnect");
+            ConnectBtn.Content = Loc.Get("Connect");
+            SaveBtn.Content = Loc.Get("Save");
+            FooterPrefixRun.Text = Loc.Get("FooterPrefix");
+            DeveloperNameRun.Text = AppConstants.DeveloperName;
+            DeveloperLink.NavigateUri = new Uri(AppConstants.DeveloperDiscordUrl);
+            DeveloperName2Run.Text = AppConstants.DeveloperName2;
+            DeveloperLink2.NavigateUri = new Uri(AppConstants.DeveloperDiscordUrl2);
 
-        var isConnected = _rpcService?.IsConnected ?? false;
-        SetStatusText(isConnected);
+            var isConnected = _rpcService?.IsConnected ?? false;
+            SetStatusText(isConnected);
 
-        var actIdx = ActivityTypeBox.SelectedIndex;
-        ActivityTypeBox.Items.Clear();
-        ActivityTypeBox.Items.Add(Loc.Get("ActivityPlaying"));
-        ActivityTypeBox.Items.Add(Loc.Get("ActivityListening"));
-        ActivityTypeBox.Items.Add(Loc.Get("ActivityWatching"));
-        ActivityTypeBox.Items.Add(Loc.Get("ActivityCompeting"));
-        if (actIdx >= 0 && actIdx < ActivityTypeBox.Items.Count) ActivityTypeBox.SelectedIndex = actIdx;
+            var actIdx = ActivityTypeBox.SelectedIndex;
+            ActivityTypeBox.Items.Clear();
+            ActivityTypeBox.Items.Add(Loc.Get("ActivityPlaying"));
+            ActivityTypeBox.Items.Add(Loc.Get("ActivityListening"));
+            ActivityTypeBox.Items.Add(Loc.Get("ActivityWatching"));
+            ActivityTypeBox.Items.Add(Loc.Get("ActivityCompeting"));
+            if (actIdx >= 0 && actIdx < ActivityTypeBox.Items.Count) ActivityTypeBox.SelectedIndex = actIdx;
 
-        var imgIdx = ImageSetBox.SelectedIndex;
-        ImageSetBox.Items.Clear();
-        ImageSetBox.Items.Add(Loc.Get("ImageKiara"));
-        ImageSetBox.Items.Add(Loc.Get("ImageGura"));
-        ImageSetBox.Items.Add(Loc.Get("ImageMori"));
-        ImageSetBox.Items.Add(Loc.Get("ImageDiscordLabel"));
-        ImageSetBox.Items.Add(Loc.Get("ImageCustom"));
-        if (imgIdx >= 0 && imgIdx < ImageSetBox.Items.Count) ImageSetBox.SelectedIndex = imgIdx;
+            var imgIdx = ImageSetBox.SelectedIndex;
+            ImageSetBox.Items.Clear();
+            ImageSetBox.Items.Add(Loc.Get("ImageKiara"));
+            ImageSetBox.Items.Add(Loc.Get("ImageGura"));
+            ImageSetBox.Items.Add(Loc.Get("ImageMori"));
+            ImageSetBox.Items.Add(Loc.Get("ImageDiscordLabel"));
+            ImageSetBox.Items.Add(Loc.Get("ImageCustom"));
+            if (imgIdx >= 0 && imgIdx < ImageSetBox.Items.Count) ImageSetBox.SelectedIndex = imgIdx;
 
-        var tmIdx = TimestampModeBox.SelectedIndex;
-        TimestampModeBox.Items.Clear();
-        TimestampModeBox.Items.Add(Loc.Get("TimerElapsed"));
-        TimestampModeBox.Items.Add(Loc.Get("TimerStartOfDay"));
-        if (tmIdx >= 0 && tmIdx < TimestampModeBox.Items.Count) TimestampModeBox.SelectedIndex = tmIdx;
+            var tmIdx = TimestampModeBox.SelectedIndex;
+            TimestampModeBox.Items.Clear();
+            TimestampModeBox.Items.Add(Loc.Get("TimerElapsed"));
+            TimestampModeBox.Items.Add(Loc.Get("TimerStartOfDay"));
+            if (tmIdx >= 0 && tmIdx < TimestampModeBox.Items.Count) TimestampModeBox.SelectedIndex = tmIdx;
 
-        var wdIdx = WatchingDurationBox.SelectedIndex;
-        WatchingDurationBox.Items.Clear();
-        WatchingDurationBox.Items.Add(Loc.Get("TimerElapsed"));
-        WatchingDurationBox.Items.Add(Loc.Get("TimerStartOfDay"));
-        WatchingDurationBox.Items.Add(Loc.Get("WatchProgressBar"));
-        if (wdIdx >= 0 && wdIdx < WatchingDurationBox.Items.Count)
-            WatchingDurationBox.SelectedIndex = wdIdx;
-        else
-            WatchingDurationBox.SelectedIndex = MapWatchingTimerToIndex(_config.WatchingTimerMode);
+            var wdIdx = WatchingDurationBox.SelectedIndex;
+            WatchingDurationBox.Items.Clear();
+            WatchingDurationBox.Items.Add(Loc.Get("TimerElapsed"));
+            WatchingDurationBox.Items.Add(Loc.Get("TimerStartOfDay"));
+            WatchingDurationBox.Items.Add(Loc.Get("WatchProgressBar"));
+            if (wdIdx >= 0 && wdIdx < WatchingDurationBox.Items.Count)
+                WatchingDurationBox.SelectedIndex = wdIdx;
+            else
+                WatchingDurationBox.SelectedIndex = MapWatchingTimerToIndex(_config.WatchingTimerMode);
 
-        var uiIdx = UpdateIntervalBox.SelectedIndex;
-        UpdateIntervalBox.Items.Clear();
-        UpdateIntervalBox.Items.Add(Loc.Get("Interval5"));
-        UpdateIntervalBox.Items.Add(Loc.Get("Interval10"));
-        UpdateIntervalBox.Items.Add(Loc.Get("Interval15"));
-        UpdateIntervalBox.Items.Add(Loc.Get("Interval30"));
-        if (uiIdx >= 0 && uiIdx < UpdateIntervalBox.Items.Count) UpdateIntervalBox.SelectedIndex = uiIdx;
+            var uiIdx = UpdateIntervalBox.SelectedIndex;
+            UpdateIntervalBox.Items.Clear();
+            UpdateIntervalBox.Items.Add(Loc.Get("Interval5"));
+            UpdateIntervalBox.Items.Add(Loc.Get("Interval10"));
+            UpdateIntervalBox.Items.Add(Loc.Get("Interval15"));
+            UpdateIntervalBox.Items.Add(Loc.Get("Interval30"));
+            if (uiIdx >= 0 && uiIdx < UpdateIntervalBox.Items.Count) UpdateIntervalBox.SelectedIndex = uiIdx;
 
-        var langIdx = LanguageBox.SelectedIndex;
-        LanguageBox.Items.Clear();
-        LanguageBox.Items.Add(Loc.Get("LangRu"));
-        LanguageBox.Items.Add(Loc.Get("LangEn"));
-        LanguageBox.SelectedIndex = _config.UiLanguage == "en" ? 1 : 0;
-        if (langIdx >= 0 && langIdx < 2) LanguageBox.SelectedIndex = langIdx;
+            var langIdx = LanguageBox.SelectedIndex;
+            LanguageBox.Items.Clear();
+            LanguageBox.Items.Add(Loc.Get("LangRu"));
+            LanguageBox.Items.Add(Loc.Get("LangEn"));
+            LanguageBox.SelectedIndex = _config.UiLanguage == "en" ? 1 : 0;
+            if (langIdx >= 0 && langIdx < 2) LanguageBox.SelectedIndex = langIdx;
+        }
+        finally
+        {
+            _loadingUi = prevLoading;
+        }
     }
 
     private void InitTray()
@@ -292,18 +302,37 @@ public partial class MainWindow : Window
         var menu = new System.Windows.Forms.ContextMenuStrip();
         menu.Items.Add(Loc.Get("TrayOpen"), null, (_, _) => { Show(); WindowState = WindowState.Normal; Activate(); });
         menu.Items.Add(new System.Windows.Forms.ToolStripSeparator());
-        menu.Items.Add(Loc.Get("TrayExit"), null, (_, _) => { _trayIcon.Visible = false; Application.Current.Shutdown(); });
+        menu.Items.Add(Loc.Get("TrayExit"), null, (_, _) =>
+        {
+            if (!_loadingUi)
+            {
+                SaveConfigFromUI();
+                _config.Save();
+            }
+            _trayIcon.Visible = false;
+            Application.Current.Shutdown();
+        });
         _trayIcon.ContextMenuStrip = menu;
     }
 
     protected override void OnClosing(CancelEventArgs e)
     {
+        if (!_loadingUi)
+        {
+            SaveConfigFromUI();
+            _config.Save();
+        }
         e.Cancel = true;
         Hide();
     }
 
     protected override void OnClosed(EventArgs e)
     {
+        if (!_loadingUi)
+        {
+            SaveConfigFromUI();
+            _config.Save();
+        }
         _timer?.Stop();
         _rpcService?.Dispose();
         _systemInfo?.Dispose();
@@ -388,6 +417,28 @@ public partial class MainWindow : Window
                 ? Visibility.Visible
                 : Visibility.Collapsed;
         }
+
+        if (!_loadingUi)
+        {
+            SaveConfigFromUI();
+            _config.Save();
+            _rpcService?.UpdateConfig(_config);
+        }
+    }
+
+    private void Option_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (_loadingUi) return;
+        SaveConfigFromUI();
+        _config.Save();
+        _rpcService?.UpdateConfig(_config);
+    }
+
+    private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+    {
+        if (_loadingUi) return;
+        SaveConfigFromUI();
+        _config.Save();
     }
 
     private void WatchingDurationBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

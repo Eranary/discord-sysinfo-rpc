@@ -45,6 +45,7 @@ SetupIconFile=icodiscord.ico
 
 ; Privileges (admin needed for Program Files and hardware sensor driver)
 PrivilegesRequired=admin
+UsedUserAreasWarning=no
 
 ; Uninstaller
 UninstallDisplayIcon={app}\{#MyAppExeName}
@@ -66,13 +67,14 @@ Source: "release\*.dll"; DestDir: "{app}"; Flags: ignoreversion skipifsourcedoes
 Source: "release\*.json"; DestDir: "{app}"; Flags: ignoreversion skipifsourcedoesntexist onlyifdoesntexist
 
 [Icons]
-Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
+Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; WorkingDir: "{app}"
 Name: "{group}\{cm:UninstallEntry}"; Filename: "{uninstallexe}"
-Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon; WorkingDir: "{app}"
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "{cm:RunApp}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\{#MyAppExeName}"; Description: "{cm:RunApp}"; WorkingDir: "{app}"; Flags: nowait postinstall skipifsilent runascurrentuser
 
 [UninstallDelete]
 Type: files; Name: "{app}\config.json"
 Type: dirifempty; Name: "{app}"
+Type: filesandordirs; Name: "{userappdata}\DiscordSysInfoRPC"

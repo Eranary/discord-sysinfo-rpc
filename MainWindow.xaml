@@ -47,7 +47,7 @@
                         
                         <TextBlock x:Name="LabelAppId" Foreground="{StaticResource TextSecondary}" FontSize="13" Margin="0,0,0,6"/>
                         <Grid Margin="0,0,0,16">
-                            <TextBox x:Name="ClientIdBox" TextChanged="ClientIdBox_TextChanged"/>
+                            <TextBox x:Name="ClientIdBox" TextChanged="ClientIdBox_TextChanged" LostFocus="TextBox_LostFocus"/>
                             <TextBlock x:Name="ClientIdPlaceholder" IsHitTestVisible="False"
                                         Foreground="{StaticResource TextMuted}" FontSize="13"
                                         VerticalAlignment="Center" Margin="14,0,12,0"/>
@@ -55,7 +55,7 @@
                         
                         <TextBlock x:Name="LabelActivityName" Foreground="{StaticResource TextSecondary}" FontSize="13" Margin="0,0,0,6"/>
                         <Grid Margin="0,0,0,16">
-                            <TextBox x:Name="ActivityNameBox" TextChanged="ActivityNameBox_TextChanged" MaxLength="128"/>
+                            <TextBox x:Name="ActivityNameBox" TextChanged="ActivityNameBox_TextChanged" MaxLength="128" LostFocus="TextBox_LostFocus"/>
                             <TextBlock x:Name="ActivityNamePlaceholder" IsHitTestVisible="False"
                                         Foreground="{StaticResource TextMuted}" FontSize="13"
                                         VerticalAlignment="Center" Margin="14,0,12,0"/>
@@ -76,11 +76,11 @@
                         <Border Height="1" Background="{StaticResource BorderBrush}" Margin="0,0,0,16"/>
                         
                         <TextBlock x:Name="LabelImageSet" Foreground="{StaticResource TextSecondary}" FontSize="13" Margin="0,0,0,6"/>
-                        <ComboBox x:Name="ImageSetBox" Margin="0,0,0,16"/>
+                        <ComboBox x:Name="ImageSetBox" SelectionChanged="Option_SelectionChanged" Margin="0,0,0,16"/>
                         
                         <StackPanel x:Name="TimerModePanel">
                             <TextBlock x:Name="LabelTimerMode" Foreground="{StaticResource TextSecondary}" FontSize="13" Margin="0,0,0,6"/>
-                            <ComboBox x:Name="TimestampModeBox" Margin="0,0,0,16"/>
+                            <ComboBox x:Name="TimestampModeBox" SelectionChanged="Option_SelectionChanged" Margin="0,0,0,16"/>
                         </StackPanel>
                         <StackPanel x:Name="WatchingDurationPanel" Visibility="Collapsed">
                             <TextBlock x:Name="LabelWatchingDuration" Foreground="{StaticResource TextSecondary}" FontSize="13" Margin="0,0,0,6"/>
@@ -126,9 +126,9 @@
                         </StackPanel>
                         
                         <TextBlock x:Name="LabelUpdateInterval" Foreground="{StaticResource TextSecondary}" FontSize="13" Margin="0,0,0,6"/>
-                        <ComboBox x:Name="UpdateIntervalBox" Margin="0,0,0,16"/>
+                        <ComboBox x:Name="UpdateIntervalBox" SelectionChanged="Option_SelectionChanged" Margin="0,0,0,16"/>
                         
-                        <CheckBox x:Name="AutoConnectBox" IsChecked="True" Margin="0,0,0,16"/>
+                        <CheckBox x:Name="AutoConnectBox" IsChecked="False" Margin="0,0,0,16" Checked="Option_Changed" Unchecked="Option_Changed"/>
 
                         <!-- Process detection & custom text -->
                         <CheckBox x:Name="DetectAppBox" Margin="0,0,0,4" Checked="Option_Changed" Unchecked="Option_Changed"/>
@@ -141,14 +141,14 @@
                         <StackPanel x:Name="CustomStatusTextPanel" Visibility="Collapsed" Margin="0,0,0,16">
                             <TextBlock x:Name="LabelCustomDetails" Foreground="{StaticResource TextSecondary}" FontSize="12" Margin="0,0,0,4"/>
                             <Grid Margin="0,0,0,8">
-                                <TextBox x:Name="CustomDetailsBox" TextChanged="CustomDetailsBox_TextChanged" MaxLength="128"/>
+                                <TextBox x:Name="CustomDetailsBox" TextChanged="CustomDetailsBox_TextChanged" MaxLength="128" LostFocus="TextBox_LostFocus"/>
                                 <TextBlock x:Name="CustomDetailsPlaceholder" IsHitTestVisible="False"
                                             Foreground="{StaticResource TextMuted}" FontSize="13"
                                             VerticalAlignment="Center" Margin="14,0,12,0"/>
                             </Grid>
                             <TextBlock x:Name="LabelCustomState" Foreground="{StaticResource TextSecondary}" FontSize="12" Margin="0,0,0,4"/>
                             <Grid Margin="0,0,0,4">
-                                <TextBox x:Name="CustomStateBox" TextChanged="CustomStateBox_TextChanged" MaxLength="128"/>
+                                <TextBox x:Name="CustomStateBox" TextChanged="CustomStateBox_TextChanged" MaxLength="128" LostFocus="TextBox_LostFocus"/>
                                 <TextBlock x:Name="CustomStatePlaceholder" IsHitTestVisible="False"
                                             Foreground="{StaticResource TextMuted}" FontSize="13"
                                             VerticalAlignment="Center" Margin="14,0,12,0"/>
@@ -163,14 +163,14 @@
                         <CheckBox x:Name="ShowButtonBox" Margin="0,0,0,8" Checked="Option_Changed" Unchecked="Option_Changed"/>
                         <TextBlock x:Name="LabelButtonText" Foreground="{StaticResource TextSecondary}" FontSize="12" Margin="0,0,0,4"/>
                         <Grid Margin="0,0,0,8">
-                            <TextBox x:Name="ButtonLabelBox" TextChanged="ButtonLabelBox_TextChanged" MaxLength="32"/>
+                            <TextBox x:Name="ButtonLabelBox" TextChanged="ButtonLabelBox_TextChanged" MaxLength="32" LostFocus="TextBox_LostFocus"/>
                             <TextBlock x:Name="ButtonLabelPlaceholder" IsHitTestVisible="False"
                                         Foreground="{StaticResource TextMuted}" FontSize="13"
                                         VerticalAlignment="Center" Margin="14,0,12,0"/>
                         </Grid>
                         <TextBlock x:Name="LabelButtonUrl" Foreground="{StaticResource TextSecondary}" FontSize="12" Margin="0,0,0,4"/>
                         <Grid>
-                            <TextBox x:Name="ButtonUrlBox" TextChanged="ButtonUrlBox_TextChanged" MaxLength="512"/>
+                            <TextBox x:Name="ButtonUrlBox" TextChanged="ButtonUrlBox_TextChanged" MaxLength="512" LostFocus="TextBox_LostFocus"/>
                             <TextBlock x:Name="ButtonUrlPlaceholder" IsHitTestVisible="False"
                                         Foreground="{StaticResource TextMuted}" FontSize="13"
                                         VerticalAlignment="Center" Margin="14,0,12,0"/>
