@@ -113,19 +113,17 @@ public class SystemInfoService : IDisposable
 
     private static string CleanCpuName(string name)
     {
-        // Extract just the model number like "i5-14600KF" or "Ryzen 5 5600X"
         name = name.Replace("(R)", "").Replace("(TM)", "").Replace("CPU", "")
                    .Replace("Processor", "").Replace("  ", " ").Trim();
         
-        // For Intel: extract i3/i5/i7/i9-XXXXX
+        // Intel: extract i3/i5/i7/i9-XXXXX
         var intelMatch = System.Text.RegularExpressions.Regex.Match(name, @"(i[3579]-\d{4,5}\w*)");
         if (intelMatch.Success) return intelMatch.Value;
         
-        // For AMD: extract Ryzen X XXXX
+        // AMD: extract Ryzen X XXXX
         var amdMatch = System.Text.RegularExpressions.Regex.Match(name, @"(Ryzen\s+\d+\s+\d{4}\w*)");
         if (amdMatch.Success) return amdMatch.Value;
         
-        // Fallback: return cleaned name but shorter
         var parts = name.Split(' ');
         if (parts.Length > 3)
             return string.Join(" ", parts.Skip(parts.Length - 2));
@@ -212,7 +210,6 @@ public class SystemInfoService : IDisposable
             }
         }
 
-        // Fallback: get RAM from performance counter
         if (data.Ram.Total == 0)
         {
             try
