@@ -38,11 +38,9 @@ public class DiscordIpcClient : IDisposable
                 
                 if (_pipe.IsConnected)
                 {
-                    // Send handshake
                     var handshake = new { v = 1, client_id = clientId };
                     await SendFrameAsync(0, handshake); // Opcode 0 = HANDSHAKE
 
-                    // Start reading
                     _readCts = new CancellationTokenSource();
                     _readTask = ReadLoopAsync(_readCts.Token);
 
@@ -69,7 +67,6 @@ public class DiscordIpcClient : IDisposable
         {
             while (!ct.IsCancellationRequested && _pipe != null && _pipe.IsConnected)
             {
-                // Read header (8 bytes: 4 opcode + 4 length)
                 var bytesRead = await _pipe.ReadAsync(headerBuffer, 0, 8, ct);
                 if (bytesRead < 8) break;
 
@@ -186,7 +183,6 @@ public class DiscordIpcClient : IDisposable
         if (!string.IsNullOrWhiteSpace(cleanName))
             activity["name"] = cleanName;
 
-        // Add buttons if provided (Discord supports up to 2 buttons)
         if (buttons != null && buttons.Count > 0)
         {
             var btnList = new List<Dictionary<string, string>>();
