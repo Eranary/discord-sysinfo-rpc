@@ -61,11 +61,9 @@ public class Config
                         }
                         catch
                         {
-                            // Local config exists but is not writable, fall through to AppData
                         }
                     }
 
-                    // Test write permission in exe directory
                     var testFile = Path.Combine(exeDir, $".perm_{Guid.NewGuid():N}.tmp");
                     try
                     {
@@ -76,7 +74,6 @@ public class Config
                     }
                     catch
                     {
-                        // Directory is read-only, fall through to AppData
                     }
                 }
             }
@@ -99,7 +96,6 @@ public class Config
     {
         try
         {
-            // 1. Check primary resolved path
             if (File.Exists(ConfigPath))
             {
                 var json = File.ReadAllText(ConfigPath);
@@ -107,7 +103,6 @@ public class Config
                 if (config != null) return config;
             }
 
-            // 2. Check AppData fallback
             var appDataPath = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 "DiscordSysInfoRPC",
@@ -120,7 +115,6 @@ public class Config
                 if (config != null) return config;
             }
 
-            // 3. Check next to exe if not checked yet
             var exeDir = Path.GetDirectoryName(Environment.ProcessPath);
             if (!string.IsNullOrEmpty(exeDir))
             {
