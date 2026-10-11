@@ -12,10 +12,7 @@ public static class DiscordLimits
     public const int MaxButtonUrlBytes = 512;
     public const int MaxActivityNameBytes = 128;
 
-    /// <summary>
-    /// Sanitizes text for Discord activity fields (details, state, name, large_text).
-    /// Ensures 2..128 bytes range without violating Discord RPC limits.
-    /// </summary>
+
     public static string? SanitizeText(string? value, int maxBytes = MaxTextBytes)
     {
         if (string.IsNullOrWhiteSpace(value))
@@ -26,16 +23,13 @@ public static class DiscordLimits
         if (string.IsNullOrWhiteSpace(truncated))
             return null;
 
-        // Discord requires at least 2 characters for details, state and name
         if (truncated.Length == 1)
             truncated += " ";
 
         return truncated;
     }
 
-    /// <summary>
-    /// Sanitizes and validates button label (1..32 bytes).
-    /// </summary>
+
     public static string? SanitizeButtonLabel(string? label)
     {
         if (string.IsNullOrWhiteSpace(label))
@@ -52,9 +46,7 @@ public static class DiscordLimits
         return truncated;
     }
 
-    /// <summary>
-    /// Validates and normalizes button URL. Returns null if invalid or unsafe.
-    /// </summary>
+
     public static string? SanitizeButtonUrl(string? url)
     {
         if (string.IsNullOrWhiteSpace(url))
