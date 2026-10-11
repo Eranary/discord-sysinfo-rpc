@@ -234,6 +234,8 @@ public class RpcService : IDisposable
                         var cpuParts = new List<string> { info.Cpu.Name };
                         if (info.Cpu.Temperature.HasValue) cpuParts.Add($"{info.Cpu.Temperature:F0}°C");
                         if (info.Cpu.Speed.HasValue) cpuParts.Add($"{info.Cpu.Speed:F2} GHz");
+                        if (!info.Cpu.Temperature.HasValue && !info.Cpu.Speed.HasValue && info.Cpu.Load > 0)
+                            cpuParts.Add($"{info.Cpu.Load:F0}%");
                         state = string.Join(" | ", cpuParts);
                         break;
 
@@ -242,6 +244,8 @@ public class RpcService : IDisposable
                         var gpuParts = new List<string> { info.Gpu.Name };
                         if (info.Gpu.Temperature.HasValue) gpuParts.Add($"{info.Gpu.Temperature:F0}°C");
                         if (info.Gpu.Speed.HasValue) gpuParts.Add($"{info.Gpu.Speed:F1} GB");
+                        if (!info.Gpu.Temperature.HasValue && !info.Gpu.Speed.HasValue && info.Gpu.Load > 0)
+                            gpuParts.Add($"{info.Gpu.Load:F0}%");
                         state = string.Join(" | ", gpuParts);
                         break;
 
