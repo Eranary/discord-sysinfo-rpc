@@ -160,7 +160,7 @@ public class RpcService : IDisposable
         _updateTimer.AutoReset = true;
         _updateTimer.Start();
         
-        // Initial update
+        // Initial
         UpdateActivity();
     }
 
@@ -259,7 +259,6 @@ public class RpcService : IDisposable
 
             var imageUrl = GetImageForLoad(info.Cpu.Load);
 
-            // Activity name from config, or null to use app name from portal
             string? activityName = DiscordLimits.SanitizeText(_config.ActivityName, DiscordLimits.MaxActivityNameBytes);
 
             if (_config.DetectForegroundApp)
@@ -311,7 +310,6 @@ public class RpcService : IDisposable
                     buttons.Add((validPromoLabel, validPromoUrl));
             }
 
-            // CPU under image only for Playing (disabled if CustomStatusText is active)
             string? largeImageText = (_config.ActivityType == 0 && !_config.CustomStatusText)
                 ? $"CPU: {info.Cpu.Load:F0}%"
                 : null;
@@ -399,9 +397,7 @@ public class RpcService : IDisposable
         return set.High;
     }
 
-    /// <summary>
-    /// Custom slots: forward-fill last set URL (1 image → all tiers; 2 images → tier 3–4 use 2nd).
-    /// </summary>
+
     private string ResolveCustomImage(float percentage)
     {
         var slots = new[]
