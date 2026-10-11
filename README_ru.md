@@ -16,7 +16,7 @@
 - Таймеры: время с запуска, с начала дня или полоса прогресса (для режима «Смотрит»).
 - Сворачивание в трей, автоподключение и переключение языка интерфейса (RU / EN).
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/ee546542-da21-451c-bf92-c3f5db9cd9a1" alt="Discord SysInfo RPC Preview in Discod" width="450" />
+  <img src="https://github.com/user-attachments/assets/721e1f48-1b31-494b-96ae-a60da71f86cb" alt="Discord SysInfo RPC Preview in Discod" width="450" />
 </p>
 ## Быстрый старт
 
