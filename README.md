@@ -17,7 +17,7 @@ A lightweight C# / WPF utility that displays real-time hardware metrics (CPU, GP
 - Flexible timers: elapsed time, time since start of day, or watching duration progress bar.
 - System tray minimization, auto-connect on launch, and bilingual UI (English / Russian).
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/721e1f48-1b31-494b-96ae-a60da71f86cb" alt="Discord SysInfo RPC Preview in Discod" width="450" />
+  <img src="https://github.com/user-attachments/assets/721e1f48-1b31-494b-96ae-a60da71f86cb" alt="Discord SysInfo RPC Preview in Discord" width="450" />
 </p>
 
 ## Quick Start
