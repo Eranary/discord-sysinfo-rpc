@@ -29,6 +29,7 @@ public class RpcService : IDisposable
 
     private int _showingError;
 
+    // Standart Presets
     private static readonly Dictionary<string, ImageSet> ImageSets = new()
     {
         ["kiara"] = new ImageSet
