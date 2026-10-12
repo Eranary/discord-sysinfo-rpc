@@ -64,7 +64,7 @@ public class SystemInfoService : IDisposable
 
     private void LoadHardwareNames()
     {
-        // 1. CPU Name
+        // 1. CPU
         try
         {
             using var searcher = new ManagementObjectSearcher("SELECT Name FROM Win32_Processor");
@@ -83,7 +83,7 @@ public class SystemInfoService : IDisposable
             Debug.WriteLine($"WMI CPU query failed: {ex.Message}");
         }
 
-        // 2. GPU Name (Pick discrete GPU on dual-GPU laptops)
+        // 2. GPU
         try
         {
             using var searcher = new ManagementObjectSearcher("SELECT Name FROM Win32_VideoController");
@@ -108,7 +108,7 @@ public class SystemInfoService : IDisposable
             Debug.WriteLine($"WMI GPU query failed: {ex.Message}");
         }
 
-        // 3. RAM Name (Clean manufacturer, avoid 0000 / dummy IDs, fallback to DDR3/4/5)
+        // 3. RAM
         try
         {
             using var searcher = new ManagementObjectSearcher("SELECT Manufacturer, PartNumber, Speed, ConfiguredClockSpeed, SMBIOSMemoryType FROM Win32_PhysicalMemory");
@@ -387,7 +387,7 @@ public class SystemInfoService : IDisposable
                                 data.Cpu.Speed = Math.Max(data.Cpu.Speed ?? 0, (sensor.Value ?? 0) / 1000f);
                         }
 
-                        // Fallback for CPU temperature if "Package" was not found (e.g. AMD Tctl/Tdie or "Core #1")
+                        // Fallback for CPU temperature
                         if (data.Cpu.Temperature == null)
                         {
                             foreach (var sensor in hardware.Sensors)
